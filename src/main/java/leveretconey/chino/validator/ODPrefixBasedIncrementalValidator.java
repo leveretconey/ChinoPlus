@@ -9,9 +9,10 @@ import leveretconey.chino.dataStructures.ODTreeNodeEquivalenceClasses;
 import leveretconey.chino.dataStructures.ODValidationResult;
 import leveretconey.chino.dataStructures.ODTree.ODTreeNode;
 import leveretconey.chino.dataStructures.VisitCountConsideredMap;
+import leveretconey.chino.util.Timer;
 import leveretconey.chino.util.Util;
 
-public class PrefixBasedValidator extends ODValidator{
+public class ODPrefixBasedIncrementalValidator extends ODValidator{
 
     @Override
     public Set<Integer> validate(ODTree tree, DataFrame data) {
@@ -24,7 +25,6 @@ public class PrefixBasedValidator extends ODValidator{
         if(notConfirmedODs.size()==0){
             return violationRows;
         }
-
         HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache=
                 predictCacheVisitCount(cache,notConfirmedODs);
         cache.put(tree.getRoot(),new ODTreeNodeEquivalenceClasses());
@@ -71,10 +71,10 @@ public class PrefixBasedValidator extends ODValidator{
        if(!node.accessible()){
             return new ODValidationResult();
        }
-       Stack<Integer> path=new Stack<>();
+       Stack<ODTreeNode> path=new Stack<>();
        ODTreeNode cacheNode=nodeForNodeToGetCache.get(node);
        do {
-           path.push(node.attribute);
+           path.push(node);
            node=node.parent;
        }while (node!=cacheNode);
        ODTreeNodeEquivalenceClasses odTreeNodeEquivalenceClasses=
@@ -83,8 +83,7 @@ public class PrefixBasedValidator extends ODValidator{
            odTreeNodeEquivalenceClasses=odTreeNodeEquivalenceClasses.deepClone();
        }
        while(!path.isEmpty()){
-           int attribute=path.pop();
-           node=node.children[attribute];
+           node=path.pop();
            odTreeNodeEquivalenceClasses.mergeNode(node,data);
            if(cache.mayPut(node))
                cache.put(node,odTreeNodeEquivalenceClasses.deepClone());
@@ -111,10 +110,9 @@ public class PrefixBasedValidator extends ODValidator{
                                                     HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache
     ){
         List<ODCandidate> ods=new ArrayList<>();
-        nodeToCutChildren.getAllODsOrderByDFSRecursion(ods,node -> node.minimal && node.status== ODTree.ODTreeNodeStatus.VALID);
+        nodeToCutChildren.getAllNodesOrderByDFSRecursion(ods, node -> node.minimal && node.status== ODTree.ODTreeNodeStatus.VALID);
         for (ODCandidate od : ods) {
             cache.addVisitCount(nodeForNodeToGetCache.get(od.odByODTreeNode),-1);
         }
     }
-
 }

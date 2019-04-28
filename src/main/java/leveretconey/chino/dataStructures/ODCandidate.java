@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ODCandidate implements Comparable<ODCandidate>{
     public ODByLeftRightAttributeList odByLeftRightAttributeList;
-    public List<Integer> odByPath;
+    public List<AttributeAndDirection> odByPath;
     public ODTree.ODTreeNode odByODTreeNode;
 
     public ODCandidate(ODTree.ODTreeNode odByODTreeNode) {
@@ -39,5 +39,14 @@ public class ODCandidate implements Comparable<ODCandidate>{
     @Override
     public String toString(){
         return odByLeftRightAttributeList.toString();
+    }
+
+    public boolean isSingleDirection(){
+        for(AttributeAndDirection attributeAndDirection:odByPath){
+            if(attributeAndDirection.direction!=AttributeAndDirection.UP){
+                return false;
+            }
+        }
+        return true;
     }
 }

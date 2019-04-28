@@ -1,20 +1,21 @@
-package leveretconey.chino.dataStructures;
+package leveretconey.chino.minimal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
-import leveretconey.chino.util.Timer;
-import minimal.ODMinimalChecker;
+import leveretconey.chino.dataStructures.AttributeAndDirection;
+import leveretconey.chino.dataStructures.ODCandidate;
 
 public class ODMinimalCheckTree extends ODMinimalChecker {
 
+
     private int countAttribute;
     private ODMinimalCheckTreeNode root;
-    public static long minimalCheckTime=0;
+
 
     @Override
     public void insert(ODCandidate candidate){
-        Timer timer=new Timer();
         List<AttributeAndDirection> left=candidate.odByLeftRightAttributeList.left;
         List<AttributeAndDirection> right=candidate.odByLeftRightAttributeList.right;
 
@@ -46,7 +47,6 @@ public class ODMinimalCheckTree extends ODMinimalChecker {
             node.leftList=new ArrayList<>();
         }
         node.leftList.add(left);
-        minimalCheckTime+=timer.getTimeUsed();
     }
 
     private ODMinimalCheckTreeNode findNode(List<AttributeAndDirection> list){
@@ -66,7 +66,10 @@ public class ODMinimalCheckTree extends ODMinimalChecker {
     @Override
     protected boolean isListMinimal(List<AttributeAndDirection> list){
 
-
+        HashMap<Integer,Integer> attribute2Index=new HashMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            attribute2Index.put(list.get(i).attribute,i);
+        }
         if(list.get(list.size()-1).direction==AttributeAndDirection.DOWN){
             list=reverseDirection(list);
         }
@@ -76,18 +79,20 @@ public class ODMinimalCheckTree extends ODMinimalChecker {
             node=node.children[attributeAndDirection2childrenIndex(attributeAndDirection)];
             if(node==null)
                 break;
+            //case XLYR
             if(node.leftList!=null){
                 for(List<AttributeAndDirection> pattern:node.leftList){
-                    if(canFindBefore(list,pattern,i-pattern.size())){
+                    int leftBegin=attribute2Index.getOrDefault(pattern.get(0).attribute,-1);
+                    if(leftBegin!=-1 && leftBegin+pattern.size()<=i && exactMatch(list,pattern,leftBegin))
                         return false;
-                    }
                 }
             }
+            //case XRL
             if (node.rightList != null) {
                 for(List<AttributeAndDirection> pattern:node.rightList){
-                    if(exactMatch(list,pattern,i-pattern.size())){
+                    int rightBegin=attribute2Index.getOrDefault(pattern.get(0).attribute,-1);
+                    if(rightBegin!=-1 && rightBegin+pattern.size()==i && exactMatch(list,pattern,rightBegin))
                         return false;
-                    }
                 }
             }
         }
@@ -96,26 +101,16 @@ public class ODMinimalCheckTree extends ODMinimalChecker {
 
     public ODMinimalCheckTree(int countAttribute) {
         this.countAttribute = countAttribute;
-        root=new ODMinimalCheckTreeNode(new AttributeAndDirection(-1,AttributeAndDirection.UP),null);
-    }
-    private List<AttributeAndDirection> reverseDirection(List<AttributeAndDirection> list){
-        List<AttributeAndDirection> result=new ArrayList<>();
-        for (AttributeAndDirection attributeAndDirection : list) {
-            result.add(new AttributeAndDirection(attributeAndDirection.attribute
-                    ,-attributeAndDirection.direction));
-        }
-        return result;
+        root=new ODMinimalCheckTreeNode(AttributeAndDirection.getInstance(0,AttributeAndDirection.UP),null);
     }
 
     private class ODMinimalCheckTreeNode{
         ODMinimalCheckTreeNode[] children;
         List<List<AttributeAndDirection>> leftList;
         List<List<AttributeAndDirection>> rightList;
-        AttributeAndDirection attribute;
 
         private ODMinimalCheckTreeNode(AttributeAndDirection attribute
                 ,ODMinimalCheckTreeNode parent) {
-            this.attribute=attribute;
             if(parent!=null){
                 int index=attributeAndDirection2childrenIndex(attribute);
                 parent.children[index]=this;

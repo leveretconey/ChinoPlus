@@ -6,10 +6,10 @@ import java.util.List;
 import leveretconey.chino.util.Util;
 
 public class ODByLeftRightAttributeList {
-    public List<Integer> left;
-    public List<Integer> right;
+    public List<AttributeAndDirection> left;
+    public List<AttributeAndDirection> right;
 
-    public ODByLeftRightAttributeList(List<Integer> left, List<Integer> right) {
+    public ODByLeftRightAttributeList(List<AttributeAndDirection> left, List<AttributeAndDirection> right) {
         this.left = left;
         this.right = right;
     }
@@ -28,31 +28,23 @@ public class ODByLeftRightAttributeList {
         return sb.toString();
     }
 
-    private static void outAttributeListNoBracket(List<Integer> list,StringBuilder sb){
+    private static void outAttributeListNoBracket(List<AttributeAndDirection> list,StringBuilder sb){
         for (int i = 0; i < list.size(); i++) {
             if(i>0)
                 sb.append(",");
-            sb.append(list.get(i)+1);
+            sb.append(list.get(i));
         }
     }
 
     public ODByLeftRightAttributeList deepClone() {
-        return new ODByLeftRightAttributeList(new ArrayList<Integer>(left)
+        return new ODByLeftRightAttributeList(new ArrayList<>(left)
                 ,new ArrayList<>(right));
     }
 
-    public void add(int attribute,boolean toLeft){
+    public void add(AttributeAndDirection attribute,boolean toLeft){
         if(toLeft)
             left.add(attribute);
         else
             right.add(attribute);
-    }
-
-    public void removeLast(int attribute,boolean fromLeft){
-        if(fromLeft)
-            Util.removeLastFromList(left);
-        else {
-            Util.removeLastFromList(right);
-        }
     }
 }

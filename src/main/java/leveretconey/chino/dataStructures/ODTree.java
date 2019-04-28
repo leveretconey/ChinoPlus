@@ -3,14 +3,13 @@ package leveretconey.chino.dataStructures;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.function.Predicate;
 
 import javax.imageio.ImageIO;
@@ -26,37 +25,37 @@ public class ODTree {
 
     private int countAttribute;
     private ODTreeNode root;
-
-    public static ODTree createFromODFile(String odFilePath,int countAttribute){
-        return createFromGivenODs(
-                readFromMetanomeStyleOdResult(odFilePath),countAttribute);
-    }
+    /**this is not possible because we are now dealing with bidirectional ods*/
+//    public static ODTree createFromODFile(String odFilePath,int countAttribute){
+//        return createFromGivenODs(
+//                readFromMetanomeStyleOdResult(odFilePath),countAttribute);
+//    }
 
     public ODTreeNode getRoot() {
         return root;
     }
 
-
-    private static String readFromMetanomeStyleOdResult(String odFilePath){
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(odFilePath)));
-            while (!METANOME_OD_BEGIN_SIGN.equals(reader.readLine())) ;
-            String line;
-            boolean fistLine = true;
-            StringBuilder result = new StringBuilder();
-            while ((line = reader.readLine()) != null) {
-                if (fistLine)
-                    fistLine = false;
-                else
-                    result.append("\n");
-                result.append(line);
-            }
-            reader.close();
-            return result.toString();
-        }catch (Exception e){
-            return "";
-        }
-    }
+    /**this is not possible because we are now dealing with bidirectional ods*/
+//    private static String readFromMetanomeStyleOdResult(String odFilePath){
+//        try {
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(odFilePath)));
+//            while (!METANOME_OD_BEGIN_SIGN.equals(reader.readLine())) ;
+//            String line;
+//            boolean fistLine = true;
+//            StringBuilder result = new StringBuilder();
+//            while ((line = reader.readLine()) != null) {
+//                if (fistLine)
+//                    fistLine = false;
+//                else
+//                    result.append("\n");
+//                result.append(line);
+//            }
+//            reader.close();
+//            return result.toString();
+//        }catch (Exception e){
+//            return "";
+//        }
+//    }
 
 
     public static final String METANOME_OD_BEGIN_SIGN="# RESULTS";
@@ -103,18 +102,26 @@ public class ODTree {
     }
     public List<ODCandidate> getAllNodesDFS(Predicate<ODTreeNode> filter){
         List<ODCandidate> result=new ArrayList<>();
-        root.getAllODsOrderByDFSRecursion(result,filter);
+        root.getAllNodesOrderByDFSRecursion(result,filter);
         return result;
     }
 
     public ODTree(int countAttribute) {
         this.countAttribute = countAttribute;
-        root=new ODTreeNode(null,-1,ODTreeNodeStatus.VALID);
+        root=new ODTreeNode(null,AttributeAndDirection.getInstance(0,AttributeAndDirection.UP)
+                ,ODTreeNodeStatus.VALID);
         root.confirm();
         for (int i = 0; i < countAttribute; i++) {
-            ODTreeNode node=new ODTreeNode(root,i,ODTreeNodeStatus.SPLIT);
+            //we always set the first attribute in RHS up for simplicity
+            ODTreeNode node=new ODTreeNode(root,AttributeAndDirection.getInstance(i,AttributeAndDirection.UP)
+                    ,ODTreeNodeStatus.SPLIT);
             node.confirm();
-            root.children[i]=node;
+        }
+        for (int i = 0; i < countAttribute; i++) {
+            ODTreeNode node=new ODTreeNode(root,AttributeAndDirection.getInstance(i,AttributeAndDirection.DOWN)
+                    ,ODTreeNodeStatus.SPLIT);
+            node.confirm();
+            node.minimal=false;
         }
     }
 
@@ -162,24 +169,25 @@ public class ODTree {
         }
         jp.repaint();
     }
+    /**this is not possible because we are now dealing with bidirectional ods*/
+//    public void insertODByAttributeList(ODByLeftRightAttributeList od){
+//        root.insertODByAttributeList(od,0,0);
+//    }
 
-    public void insertODByAttributeList(ODByLeftRightAttributeList od){
-        root.insertODByAttributeList(od,0,0);
-    }
-
-    private static ODTree createFromGivenODs(String odsString,int countAttribute){
-        ODTree tree=new ODTree(countAttribute);
-        for(String line:odsString.split("\\n")){
-            String[] parts=line.split(INPUT_DELIMETER);
-            ODByLeftRightAttributeList od=new ODByLeftRightAttributeList(
-                     Util.parseIntegerList(parts[0],",")
-                    ,Util.parseIntegerList(parts[1],","));
-            Util.listEachElementPlus(od.left,-1);
-            Util.listEachElementPlus(od.right,-1);
-            tree.insertODByAttributeList(od);
-        }
-        return tree;
-    }
+    /**this is not possible because we are now dealing with bidirectional ods*/
+//    private static ODTree createFromGivenODs(String odsString,int countAttribute){
+//        ODTree tree=new ODTree(countAttribute);
+//        for(String line:odsString.split("\\n")){
+//            String[] parts=line.split(INPUT_DELIMETER);
+//            ODByLeftRightAttributeList od=new ODByLeftRightAttributeList(
+//                     Util.parseIntegerList(parts[0],",")
+//                    ,Util.parseIntegerList(parts[1],","));
+//            Util.listEachElementPlus(od.leftList,-1);
+//            Util.listEachElementPlus(od.rightList,-1);
+//            tree.insertODByAttributeList(od);
+//        }
+//        return tree;
+//    }
 
     public enum ODTreeNodeStatus{
         VALID,SWAP,SPLIT,UNKNOWN;
@@ -187,7 +195,7 @@ public class ODTree {
         @Override
         public String toString() {
             if(equals(VALID))
-                return "O";
+                return "V";
             else if(equals(SWAP))
                 return "W";
             else if(equals(SPLIT))
@@ -201,7 +209,7 @@ public class ODTree {
     public class ODTreeNode{
         public ODTreeNode parent;
         public ODTreeNodeStatus status;
-        public int attribute;
+        public AttributeAndDirection attribute;
         public ODTreeNode[] children;
         public boolean confirm;
         public boolean minimal;
@@ -211,57 +219,52 @@ public class ODTree {
         }
         @Override
         public String toString() {
-            return "ODTreeNode{" +
-                    "status=" + status +
-                    ", attribute=" + attribute +
-                    ", confirm=" + confirm +
-                    ", minimal=" + minimal +
-                    ", path=" +new ODCandidate(this).odByPath +
-                    '}';
+            return new ODCandidate(this).toString();
         }
-
-        private void insertODByAttributeList(ODByLeftRightAttributeList od, int nextLeft, int nextRight){
-            int position=0;
-            if(status==ODTreeNodeStatus.UNKNOWN){
-                if(nextLeft<od.left.size()){
-                    status=ODTreeNodeStatus.SPLIT;
-                }else {
-                    status=ODTreeNodeStatus.VALID;
-                    return;
-                }
-            }
-            switch (status){
-                case SWAP:
-                    throw new RuntimeException("invalid od insertion");
-                case SPLIT:
-                    position=od.left.get(nextLeft++);
-                    break;
-                case VALID:
-                    position=od.right.get(nextRight++);
-                    break;
-            }
-            if(children[position]==null)
-                children[position]=new ODTreeNode(this,position);
-            children[position].insertODByAttributeList(od,nextLeft,nextRight);
-
-        }
-        public ODTreeNode(ODTreeNode parent, int attribute , ODTreeNodeStatus status) {
+        /**this is not possible because we are now dealing with bidirectional ods*/
+//        private void insertODByAttributeList(ODByLeftRightAttributeList od, int nextLeft, int nextRight){
+//            int position=0;
+//            if(status==ODTreeNodeStatus.UNKNOWN){
+//                if(nextLeft<od.leftList.size()){
+//                    status=ODTreeNodeStatus.SPLIT;
+//                }else {
+//                    status=ODTreeNodeStatus.VALID;
+//                    return;
+//                }
+//            }
+//            switch (status){
+//                case SWAP:
+//                    throw new RuntimeException("invalid od insertion");
+//                case SPLIT:
+//                    position=od.leftList.get(nextLeft++);
+//                    break;
+//                case VALID:
+//                    position=od.rightList.get(nextRight++);
+//                    break;
+//            }
+//            if(children[position]==null)
+//                children[position]=new ODTreeNode(this,position);
+//            children[position].insertODByAttributeList(od,nextLeft,nextRight);
+//
+//        }
+        public ODTreeNode(ODTreeNode parent, AttributeAndDirection attribute , ODTreeNodeStatus status) {
             this.parent = parent;
             this.status = status;
             this.attribute = attribute;
             this.minimal=true;
-            children=new ODTreeNode[countAttribute];
+            //first countAttribute pointers point to up attributes, other for down
+            this.children=new ODTreeNode[countAttribute*2];
             if(parent!=null) {
-                parent.children[attribute] = this;
+                parent.children[attributeAndDirection2childrenIndex(attribute)] = this;
             }
-            confirm =  status==ODTreeNodeStatus.SWAP;
+            this.confirm =  status==ODTreeNodeStatus.SWAP;
         }
 
         public void confirm() {
             this.confirm = true;
         }
 
-        public ODTreeNode(ODTreeNode parent, int attribute) {
+        public ODTreeNode(ODTreeNode parent, AttributeAndDirection attribute) {
             this(parent,attribute,ODTreeNodeStatus.UNKNOWN);
         }
 
@@ -280,12 +283,12 @@ public class ODTree {
         }
 
         private void draw(Graphics pic, int centerx, int centery
-                , int givenWidth,int parentx,int parenty,boolean simplyfy){
+                , int givenWidth,int parentx,int parenty,boolean simplify){
             pic.setColor(Color.WHITE);
             if (isRoot()){
                 pic.fillRect(0,0,9999,9999);
             }
-            int childrenCount= getChildrenCount(simplyfy);
+            int childrenCount= getChildrenCount(simplify);
             int width=childrenCount*GRID_WIDTH+NODE_HEIGHT*2;
             int left=centerx-width/2;
             int height=NODE_HEIGHT;
@@ -307,7 +310,7 @@ public class ODTree {
             offset+=NODE_HEIGHT;
             pic.drawLine(offset,top,offset,down);
             pic.setColor(statusColor);
-            pic.drawString(String.valueOf(attribute+1),offset+2,down-1);
+            pic.drawString(attribute.toString(),offset+2,down-1);
             pic.setColor(Color.BLACK);
 
             offset+=NODE_HEIGHT-GRID_WIDTH;
@@ -317,15 +320,15 @@ public class ODTree {
             childrenWidth=Math.max(14,childrenWidth);
             int childrenOffset=centerx-givenWidth/2+childrenWidth/2;
             int realChildrenIndex=0;
-            for (int i = 0; i < countAttribute; i++) {
-                if (!(children[i] != null && (!simplyfy || !
+            for (int i = 0; i < countAttribute*2; i++) {
+                if (!(children[i] != null && (!simplify || !
                         (children[i].status== ODTreeNodeStatus.UNKNOWN
                                 || children[i].status==ODTreeNodeStatus.SWAP))))
                     continue;
                 offset+=GRID_WIDTH;
                 pic.drawLine(offset,top,offset,down);
                 children[i].draw(pic, childrenOffset, centery + NODE_INTERVAL + 2 * realChildrenIndex * GRID_WIDTH,
-                    childrenWidth, offset + GRID_WIDTH / 2, centery,simplyfy);
+                    childrenWidth, offset + GRID_WIDTH / 2, centery,simplify);
                 childrenOffset+=childrenWidth;
                 realChildrenIndex++;
             }
@@ -338,22 +341,21 @@ public class ODTree {
             }
             return false;
         }
-        public void getAllODsOrderByDFSRecursion(List<ODCandidate> ods,Predicate<ODTreeNode> filter){
+        public void getAllNodesOrderByDFSRecursion(List<ODCandidate> ods, Predicate<ODTreeNode> filter){
             if(!minimal)
                 return;
             if(filter.test(this)){
                 ods.add(new ODCandidate(this));
             }
-            for (int attribute = 0; attribute < countAttribute; attribute++) {
-                ODTreeNode child=children[attribute];
+            for (ODTreeNode child:children) {
                 if(child != null) {
-                    child.getAllODsOrderByDFSRecursion(ods,filter);
+                    child.getAllNodesOrderByDFSRecursion(ods,filter);
                 }
             }
         }
 
         public void cutChildren(){
-            for (int i = 0; i < countAttribute; i++) {
+            for (int i = 0; i < countAttribute*2; i++) {
                 if(children[i]!=null){
                     children[i].parent=null;
                     children[i]=null;
@@ -431,5 +433,42 @@ public class ODTree {
     public List<Integer> getCountNodeInEachLevel(){
         return getCountNodeInEachLevel((node)->{return true;});
     }
+    public AttributeAndDirection childrenIndex2AttributeAndDirection(int attribute){
+        int att=attribute%countAttribute;
+        int direction= ( (attribute<countAttribute) ? AttributeAndDirection.UP : AttributeAndDirection.DOWN);
+        return AttributeAndDirection.getInstance(att,direction);
+    }
 
+    public int attributeAndDirection2childrenIndex(AttributeAndDirection attributeAndDirection){
+        return attributeAndDirection.attribute+
+                (attributeAndDirection.direction==AttributeAndDirection.DOWN?countAttribute:0);
+    }
+
+    public String toDotCode(){
+        StringBuilder sb=new StringBuilder();
+        sb.append("digraph structs {  \n" +
+                "node [shape = record];\n");
+        StringBuilder edges=new StringBuilder();
+        Queue<ODTreeNode> queue=new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()){
+            ODTreeNode node=queue.poll();
+            sb.append("node").append(node.hashCode()).append(" [label=\"").append(node.status);
+            if(node!=root)
+                    sb.append("|").append((char)(node.attribute.attribute+'A'))
+                            .append(node.attribute.direction==AttributeAndDirection.UP?"↑":"↓");
+            sb.append("\"]\n");
+            if(node.parent!=null){
+                edges.append("node").append(node.parent.hashCode()).append(" -> ")
+                        .append("node").append(node.hashCode()).append("\n");
+            }
+            for (ODTreeNode child:node.children){
+                if(child!=null && child.minimal && child.status!=ODTreeNodeStatus.SWAP){
+                    queue.offer(child);
+                }
+            }
+        }
+        sb.append(edges).append("\n}");
+        return sb.toString();
+    }
 }

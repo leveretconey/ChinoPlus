@@ -1,5 +1,6 @@
 package leveretconey.chino.sampler;
 
+import java.util.Random;
 import java.util.Set;
 
 import leveretconey.chino.dataStructures.DataFrame;
@@ -7,23 +8,32 @@ import leveretconey.chino.dataStructures.PartialDataFrame;
 
 abstract public class Sampler {
 
+    private static final int LOW_BOUND=5;
+    private static final int UPPER_BOUND=100;
+
+    protected Random random=new Random();
     public Sampler() {
     }
-    final public PartialDataFrame sample(DataFrame originalData,SampleConfig config){
-        if(originalData==null)
-            return null;
-        int dataLineCount=originalData.getRowCount();
-        int sampleLineCount=config.isUsePercentage()?
-                (int)(dataLineCount * config.samplePercentage):
-                config.sampleLineCount;
-        if(sampleLineCount>dataLineCount)
-            sampleLineCount=dataLineCount;
-        Set<Integer> sampleLines=chooseLines(originalData,sampleLineCount);
-        PartialDataFrame sampleResult=new PartialDataFrame(originalData,sampleLines);
-        sampleResult.setColumnName(originalData.getColumnName());
 
-        return sampleResult;
+    final public PartialDataFrame sample(DataFrame data){
+        int sampleRowCount=Math.max(5,Math.min(data.getRowCount()/100,100));
+        return sample(data,new SampleConfig(sampleRowCount));
     }
 
-    protected abstract Set<Integer> chooseLines(DataFrame input, int sampleLineCount);
+    final public PartialDataFrame sample(DataFrame data,SampleConfig adviceConfig){
+        if(data==null)
+            return null;
+        int dataLineCount=data.getRowCount();
+        int sampleLineCount=adviceConfig.isUsePercentage()?
+                (int)(dataLineCount * adviceConfig.samplePercentage):
+                adviceConfig.sampleLineCount;
+        if(sampleLineCount>dataLineCount)
+            sampleLineCount=dataLineCount;
+        Set<Integer> sampleLines=chooseLines(data,sampleLineCount);
+        PartialDataFrame result=new PartialDataFrame(data,sampleLines);
+        result.setColumnName(data.getColumnName());
+        return result;
+    }
+
+    protected abstract Set<Integer> chooseLines(DataFrame data, int adviceSampleSize);
 }

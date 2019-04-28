@@ -1,26 +1,25 @@
 package leveretconey.chino.discoverer;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 import leveretconey.chino.dataStructures.DataFrame;
 import leveretconey.chino.dataStructures.ODCandidate;
+import leveretconey.chino.minimal.ODMinimalCheckTree;
 import leveretconey.chino.dataStructures.ODTree;
 import leveretconey.chino.dataStructures.ODTree.ODTreeNode;
 import leveretconey.chino.dataStructures.ODTreeNodeEquivalenceClasses;
-import leveretconey.chino.util.Util;
+import leveretconey.chino.minimal.ODMinimalChecker;
 
-@SuppressWarnings("all")
 public class BFSODDiscovererFull extends ODDiscoverer{
     @Override
     public ODTree discover(DataFrame data, ODTree reference) {
         Queue<ODDiscovererNodeSavingInfo> queue=new LinkedList<>();
         ODTree result=new ODTree(data.getColumnCount());
-        List<ODCandidate> ods=new ArrayList<>();
         int attributeCount=data.getColumnCount();
+        ODMinimalChecker odMinimalChecker=new ODMinimalCheckTree(data.getColumnCount());
 
+        //note that the direction of all nodes in the second level are always UP
         for (int attribute = 0; attribute < attributeCount; attribute++) {
             if(reference!=null) {
                 copyConfirmNode(result, result.getRoot().children[attribute]
@@ -31,23 +30,18 @@ public class BFSODDiscovererFull extends ODDiscoverer{
             queue.offer(new ODDiscovererNodeSavingInfo(result.getRoot().children[attribute]
                     , null, odTreeNodeEquivalenceClasses));
         }
-        int count=0;
         while (!queue.isEmpty()) {
-            count++;
-            if(count ==2000) {
-                Util.out(result);
-                result.toPic("output\\pic");
-            }
-
-
-
             ODDiscovererNodeSavingInfo info=queue.poll();
             ODTreeNode parent=info.nodeInResultTree;
 
-            for (int attribute = 0; attribute < attributeCount; attribute++) {
-                ODTreeNode child=parent.children[attribute]==null?
-                        result.new ODTreeNode(parent,attribute):parent.children[attribute];
-                child.minimal= isODCandidateMinimal(child,ods);
+            for (int attribute = 0; attribute < attributeCount*2; attribute++) {
+                ODTreeNode child;
+                if(parent.children[attribute]==null)
+                    child=result.new ODTreeNode(parent,result.childrenIndex2AttributeAndDirection(attribute));
+                else
+                    child=parent.children[attribute];
+                ODCandidate childCandidate=new ODCandidate(child);
+                child.minimal= odMinimalChecker.isCandidateMinimal(childCandidate);
                 if(!child.minimal)
                     continue;
                 ODTreeNodeEquivalenceClasses odTreeNodeEquivalenceClasses =
@@ -56,7 +50,7 @@ public class BFSODDiscovererFull extends ODDiscoverer{
                 if(!child.confirm)
                     child.status=odTreeNodeEquivalenceClasses.validate(data).status;
                 if(child.status== ODTree.ODTreeNodeStatus.VALID){
-                    ods.add(new ODCandidate(child));
+                    odMinimalChecker.insert(childCandidate);
                 }
                 if(child.status!= ODTree.ODTreeNodeStatus.SWAP){
                     queue.offer(new ODDiscovererNodeSavingInfo(child
@@ -68,10 +62,10 @@ public class BFSODDiscovererFull extends ODDiscoverer{
     }
 
     private void copyConfirmNode(ODTree resultTree,ODTreeNode resultTreeNode,ODTreeNode referenceTreeNode){
-        for (int attribute = 0; attribute < referenceTreeNode.children.length; attribute++) {
-            ODTreeNode referenceChildNode=referenceTreeNode.children[attribute];
+        for (ODTreeNode referenceChildNode:referenceTreeNode.children) {
             if(referenceChildNode!=null && referenceChildNode.confirm){
-                ODTreeNode resultChildNode =resultTree.new ODTreeNode(resultTreeNode,attribute);
+                ODTreeNode resultChildNode =resultTree.new ODTreeNode
+                        (resultTreeNode,referenceChildNode.attribute);
                 resultChildNode.status=referenceChildNode.status;
                 resultChildNode.confirm();
                 copyConfirmNode(resultTree,resultChildNode,referenceChildNode);

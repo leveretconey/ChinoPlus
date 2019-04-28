@@ -9,6 +9,7 @@ public class ODTreeNodeEquivalenceClasses {
     public EquivalenceClass right;
     public static long mergeTime=0;
     public static long validateTime=0;
+    public static long cloneTime=0;
 
     public ODValidationResult validate(DataFrame data){
         Timer validateTimer=new Timer();
@@ -75,13 +76,24 @@ public class ODTreeNodeEquivalenceClasses {
     }
 
     public ODTreeNodeEquivalenceClasses deepClone(){
-        return new ODTreeNodeEquivalenceClasses(left.deepClone(),right.deepClone());
+        Timer timer=new Timer();
+        ODTreeNodeEquivalenceClasses result = new ODTreeNodeEquivalenceClasses(left.deepClone(), right.deepClone());
+        cloneTime+=timer.getTimeUsed();
+        return result;
     }
 
-    public ODTreeNodeEquivalenceClasses mergeNode(ODTree.ODTreeNode node,DataFrame data){
+    @Override
+    public String toString() {
+        return "ODTreeNodeEquivalenceClasses{" +
+                "leftList=" + left +
+                ", rightList=" + right +
+                '}';
+    }
+
+    public ODTreeNodeEquivalenceClasses mergeNode(ODTree.ODTreeNode node, DataFrame data){
         Timer mergeTimer =new Timer();
 
-        int attribute=node.attribute;
+        AttributeAndDirection attribute=node.attribute;
         if(node.parent.status== ODTree.ODTreeNodeStatus.SPLIT)
             left.merge(data,attribute);
         else

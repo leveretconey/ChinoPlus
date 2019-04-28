@@ -1,5 +1,6 @@
-package minimal;
+package leveretconey.chino.minimal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import leveretconey.chino.dataStructures.AttributeAndDirection;
@@ -10,6 +11,8 @@ import leveretconey.chino.util.Timer;
 public abstract class ODMinimalChecker {
     public static long minimalCheckTime=0;
     public abstract void insert(ODCandidate candidate);
+    protected abstract boolean isListMinimal(List<AttributeAndDirection> list);
+
     public boolean isCandidateMinimal(ODCandidate candidate){
         Timer timer=new Timer();
         boolean result;
@@ -34,23 +37,14 @@ public abstract class ODMinimalChecker {
         minimalCheckTime+=timer.getTimeUsed();
         return result;
     }
-    protected abstract boolean isListMinimal(List<AttributeAndDirection> list);
+
 
     protected boolean canFindBefore(List<AttributeAndDirection> context,
                                   List<AttributeAndDirection> pattern,int beginPosition){
         int targetAttribute=pattern.get(0).attribute;
-        int targetDirection=pattern.get(0).direction;
         for(int i=beginPosition;i>=0;i--){
             if(context.get(i).attribute==targetAttribute){
-                if(context.get(i).direction!=targetDirection)
-                    return false;
-                for(int j=1;j<pattern.size();j++){
-                    AttributeAndDirection x1=context.get(i+j);
-                    AttributeAndDirection x2=pattern.get(j);
-                    if(x1.direction!=x2.direction || x1.attribute!=x2.attribute)
-                        return false;
-                }
-                return true;
+                return exactMatch(context,pattern,i);
             }
         }
         return false;
@@ -59,13 +53,22 @@ public abstract class ODMinimalChecker {
                                List<AttributeAndDirection> pattern,int beginPosition){
         if(beginPosition<0)
             return false;
+        if(beginPosition+pattern.size()>context.size())
+            return false;
         for (int i = 0; i < pattern.size(); i++) {
             AttributeAndDirection x1=context.get(beginPosition+i);
             AttributeAndDirection x2=pattern.get(i);
-            if(x1.direction!=x2.direction || x1.attribute!=x2.attribute)
+            if(x1!=x2)
                 return false;
         }
         return true;
     }
-
+    protected List<AttributeAndDirection> reverseDirection(List<AttributeAndDirection> list){
+        List<AttributeAndDirection> result=new ArrayList<>();
+        for (AttributeAndDirection attributeAndDirection : list) {
+            result.add(AttributeAndDirection.getInstance(attributeAndDirection.attribute
+                    ,-attributeAndDirection.direction));
+        }
+        return result;
+    }
 }

@@ -174,4 +174,22 @@ public class DataFrame {
         return new RandomSampler().sample(this,new SampleConfig(countRow))
                 .randomSelectColumns(countColumn);
     }
+
+    public static DataFrame randomDataFrame(int countRow,int countColumn,int min,int max){
+        DataFrame result=new DataFrame();
+        List<String> head=new ArrayList<>();
+        for (int i = 1; i <= countColumn; i++) {
+            head.add(String.valueOf(i));
+        }
+        result.setColumnName(head);
+        Random random=new Random();
+        for (int j = 0; j < countRow; j++) {
+            List<Integer> row=new ArrayList<>();
+            for (int i = 0; i < countColumn; i++) {
+                row.add(random.nextInt(max-min+1)+min);
+            }
+            result.addRow(row);
+        }
+        return result;
+    }
 }
