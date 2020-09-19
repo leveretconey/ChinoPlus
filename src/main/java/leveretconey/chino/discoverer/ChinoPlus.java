@@ -3,6 +3,7 @@ package leveretconey.chino.discoverer;
 import java.util.Set;
 
 import leveretconey.chino.dataStructures.DataFrame;
+import leveretconey.chino.dataStructures.ODCandidate;
 import leveretconey.chino.minimal.ODMinimalCheckTree;
 import leveretconey.chino.dataStructures.ODTree;
 import leveretconey.chino.dataStructures.ODTreeNodeEquivalenceClasses;
@@ -17,9 +18,17 @@ import leveretconey.chino.validator.ODPrefixBasedIncrementalValidator;
 
 public class ChinoPlus extends ODDiscoverer{
 
-    private Sampler sampler;
-    private ODValidator validator;
-    private boolean printDebugInfo;
+    protected Sampler sampler;
+    protected ODValidator validator;
+    protected boolean printDebugInfo;
+
+    private long totalDiscoverTime=0;
+    private long totalValidateTime=0;
+    private long totalProductTime=0;
+    private long totalCloneTime=0;
+    private long totalCheckTime=0;
+    private long totalMinimalTime=0;
+
 
     public ChinoPlus() {
         this(false);
@@ -37,10 +46,14 @@ public class ChinoPlus extends ODDiscoverer{
         this.printDebugInfo = printDebugInfo;
     }
 
-    private void out(Object o){
+    protected void out(Object o){
         if(printDebugInfo){
             Util.out(o);
         }
+    }
+
+    public void setSamplerRandomSeed(long seed){
+        sampler.setRandomSeed(seed);
     }
 
     @Override
@@ -61,18 +74,21 @@ public class ChinoPlus extends ODDiscoverer{
                 out("第"+round+"轮开始");
                 Timer roundTimer=new Timer();
                 int subRound=0;
+//            odTree=new ODTree(data.getColumnCount());
             BFSODDiscovererForIteration discoverer=new BFSODDiscovererForIteration();
             while (true){
                     subRound++;
                     out("\n第"+subRound+"次迭代");
                     Timer subtimer=new Timer();
                 odTree=discoverer.discover(sampledData,odTree);
+                    totalDiscoverTime+=subtimer.getTimeUsed();
                     out("发现用时"+subtimer.getTimeUsedAndReset()/1000.0+"s");
                     out("OD数量"+odTree.getAllOdsOrderByBFS().size());
                 Set<Integer> violateRowIndexes=validator.validate(odTree,data);
+                    totalValidateTime+=subtimer.getTimeUsed();
                     out("检测用时"+subtimer.getTimeUsedAndReset()/1000.0+"s");
                     out("剩余OD数量"+odTree.getAllOdsOrderByBFS().size());
-                    showPartStatisticAndReset();
+                    dealPartTime();
                 if(violateRowIndexes.size()==0){
                     if(discoverer.isComplete()){
                             out("------");
@@ -80,14 +96,29 @@ public class ChinoPlus extends ODDiscoverer{
                             out("本轮用时"+roundTimer.getTimeUsed()/1000+"s");
                             out("新数据集大小"+sampledData.getRowCount());
                             out("------");
-                            out("------");
+                            out("-----------------------------------------------------");
 //                            out(odTree);
                             out("最终统计");
                             out("用时"+timer.getTimeUsed()/1000.0+"s");
                             out("OD数量"+odTree.getAllOdsOrderByBFS().size());
                             out("数据集大小"+sampledData.getRowCount());
-                            out("------");
+                            out("discover时间:"+totalDiscoverTime/1000.0+"s");
+                            out("validate时间:"+totalValidateTime/1000.0+"s");
+                            Util.out("");
+                            out("check时间:"+totalCheckTime/1000.0+"s");
+                            out("minimal检查时间:"+totalMinimalTime/1000.0+"s");
+                            out("product时间:"+totalProductTime/1000.0+"s");
+                            out("clone时间:"+totalCloneTime/1000.0+"s");
+                            out("-----------------------------------------------------");
                         return odTree;
+                    }else {
+                        //todo debug
+                        if (odTree.getAllOdsOrderByDFS().size()>100000){
+                            for (ODCandidate od : odTree.getAllOdsOrderByBFS()) {
+                                Util.out(od);
+                            }
+                            return odTree;
+                        }
                     }
                 }else {
                     sampledData.addRows(violateRowIndexes);
@@ -101,11 +132,15 @@ public class ChinoPlus extends ODDiscoverer{
             }
         }
     }
-    void showPartStatisticAndReset(){
+    void dealPartTime(){
         out("check时间 "+ ODTreeNodeEquivalenceClasses.validateTime/1000.0+"s");
         out("minimal检查时间 "+ ODMinimalCheckTree.minimalCheckTime/1000.0+"s");
         out("product时间 "+ODTreeNodeEquivalenceClasses.mergeTime/1000.0+"s");
         out("clone时间 "+ODTreeNodeEquivalenceClasses.cloneTime/1000.0+"s");
+        totalCheckTime+=ODTreeNodeEquivalenceClasses.validateTime;
+        totalMinimalTime+=ODMinimalCheckTree.minimalCheckTime;
+        totalProductTime+=ODTreeNodeEquivalenceClasses.mergeTime;
+        totalCloneTime+=ODTreeNodeEquivalenceClasses.cloneTime;
         ODTreeNodeEquivalenceClasses.validateTime=0;
         ODTreeNodeEquivalenceClasses.cloneTime=0;
         ODTreeNodeEquivalenceClasses.mergeTime=0;

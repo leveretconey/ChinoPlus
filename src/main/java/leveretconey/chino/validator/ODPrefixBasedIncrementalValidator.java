@@ -9,8 +9,6 @@ import leveretconey.chino.dataStructures.ODTreeNodeEquivalenceClasses;
 import leveretconey.chino.dataStructures.ODValidationResult;
 import leveretconey.chino.dataStructures.ODTree.ODTreeNode;
 import leveretconey.chino.dataStructures.VisitCountConsideredMap;
-import leveretconey.chino.util.Timer;
-import leveretconey.chino.util.Util;
 
 public class ODPrefixBasedIncrementalValidator extends ODValidator{
 
@@ -64,7 +62,7 @@ public class ODPrefixBasedIncrementalValidator extends ODValidator{
         return result;
     }
 
-    private ODValidationResult validateOneOdCandidate(DataFrame data, ODTree.ODTreeNode node,
+    protected ODValidationResult validateOneOdCandidate(DataFrame data, ODTree.ODTreeNode node,
                                                       VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache,
                                                       HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache
     ){
@@ -105,7 +103,7 @@ public class ODPrefixBasedIncrementalValidator extends ODValidator{
        return result;
     }
 
-    private void updateCacheVisitCountBeforeNodeChildrenCut(ODTreeNode nodeToCutChildren,
+    protected void updateCacheVisitCountBeforeNodeChildrenCut(ODTreeNode nodeToCutChildren,
                                                     VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache,
                                                     HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache
     ){

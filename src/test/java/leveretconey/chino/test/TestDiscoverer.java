@@ -52,7 +52,7 @@ public class TestDiscoverer {
 
     @Test
     public void testGc(){
-        DataFrame data=DataFrame.fromCsv("datasets/50w 8.csv");
+        DataFrame data=DataFrame.fromCsv("ocdMistake.csv");
         ODTree tree=new ChinoPlus(true)
                 .discover(data);
     }

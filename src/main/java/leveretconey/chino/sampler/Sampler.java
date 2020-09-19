@@ -11,9 +11,19 @@ abstract public class Sampler {
     private static final int LOW_BOUND=5;
     private static final int UPPER_BOUND=100;
 
-    protected Random random=new Random();
+    protected Random random;
     public Sampler() {
+        random=new Random();
     }
+
+    public Sampler(long randomSeed) {
+        this.random = new Random(randomSeed);
+    }
+
+    public void setRandomSeed(long randomSeed){
+        random.setSeed(randomSeed);
+    }
+
 
     final public PartialDataFrame sample(DataFrame data){
         int sampleRowCount=Math.max(5,Math.min(data.getRowCount()/100,100));

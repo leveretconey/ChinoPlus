@@ -1,76 +1,109 @@
 package leveretconey.chino.dataStructures;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import leveretconey.chino.sampler.DataAndIndex;
 
 public class EquivalenceClass{
-    private final static Comparator<DataAndIndex> reverseComparator=(i1,i2)->i2.data-i1.data;
-    private final static Comparator<DataAndIndex> normalComparator=(i1,i2)->i1.data-i2.data;
+    public int[] indexes;
+    public List<Integer> begins;
 
-    public List<List<Integer>> groups=null;
+
+    private final static Comparator<DataAndIndex> reverseComparator=(i1, i2)->i2.data-i1.data;
+    private final static Comparator<DataAndIndex> normalComparator=(i1,i2)->i1.data-i2.data;
 
     public EquivalenceClass() {
     }
 
+    public boolean initialized(){
+        return indexes!=null;
+    }
 
-    public void merge(DataFrame data,AttributeAndDirection attribute){
+    private void initialize(DataFrame data){
+        int countRow=data.getRowCount();
+        indexes=new int[countRow];
+        for (int i = 0; i < countRow; i++) {
+            indexes[i]=i;
+        }
+        begins=new ArrayList<>();
+        begins.add(0);
+        begins.add(countRow);
+
+    }
+
+
+    public EquivalenceClass merge(DataFrame data,AttributeAndDirection attributeAndDirection){
         //lazy update
-        if(groups==null){
-            List<Integer> list=new ArrayList<>();
-            for (int row = 0; row < data.getRowCount(); row++) {
-                list.add(row);
-            }
-            groups =new ArrayList<>();
-            groups.add(list);
+        if(!initialized()){
+            initialize(data);
         }
 
-        if(groups.size()==data.getRowCount())
-            return;
-        List<List<Integer>> newClasses=new ArrayList<>();
-        Comparator<DataAndIndex> comparator=attribute.direction==AttributeAndDirection.UP
+        int column=attributeAndDirection.attribute;
+        Comparator<DataAndIndex> comparator=attributeAndDirection.direction==AttributeAndDirection.UP
                 ?normalComparator:reverseComparator;
-        for (List<Integer> group : groups) {
-            if(group.size()==1){
-                newClasses.add(group);
+
+        if(begins.size()==data.getRowCount()+1)
+            return this;
+        List<Integer> newBegins=new ArrayList<>();
+        for(int beginPointer=0;beginPointer<begins.size()-1;beginPointer++) {
+            int groupBegin = begins.get(beginPointer);
+            int groupEnd = begins.get(beginPointer + 1);
+            if(groupBegin==groupEnd-1){
+                newBegins.add(groupBegin);
                 continue;
             }
+            int value=0;
+            try {
+                value=data.get(indexes[groupBegin],column);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            boolean same=true;
             List<DataAndIndex> mergeData=new ArrayList<>();
-            for (Integer row : group) {
-                mergeData.add(new DataAndIndex(data.get(row,attribute.attribute),row));
+            for(int i=groupBegin;i<groupEnd;i++){
+                int row=indexes[i];
+                int rowValue=data.get(row,column);
+                if(rowValue!=value){
+                    same=false;
+                }
+                mergeData.add(new DataAndIndex(rowValue,row));
+            }
+            if(same){
+                newBegins.add(groupBegin);
+                continue;
             }
             mergeData.sort(comparator);
-            ArrayList<Integer> listToInsert=new ArrayList<>();
+            int fillPointer=groupBegin;
             for (int i = 0; i < mergeData.size(); i++) {
-                if(i>0 && mergeData.get(i).data!=mergeData.get(i-1).data){
-                    listToInsert.trimToSize();
-                    newClasses.add(listToInsert);
-                    listToInsert=new ArrayList<>();
+                if(i==0 || mergeData.get(i-1).data!=mergeData.get(i).data){
+                    newBegins.add(fillPointer);
                 }
-                listToInsert.trimToSize();
-                listToInsert.add(mergeData.get(i).index);
+                indexes[fillPointer]=mergeData.get(i).index;
+                fillPointer++;
             }
-            newClasses.add(listToInsert);
         }
-        groups =newClasses;
+        begins=newBegins;
+        begins.add(data.getRowCount());
+        return this;
     }
 
 
     @Override
     public String toString() {
-        return groups.toString();
+        return "EquivalenceClass{" +
+                "indexes=" + Arrays.toString(indexes) +
+                ", begins=" + begins +
+                '}';
     }
 
     public EquivalenceClass deepClone(){
         EquivalenceClass result=new EquivalenceClass();
-        if(groups!=null){
-            result.groups=new ArrayList<>();
-            for(List<Integer> group: groups){
-                List<Integer> list=new ArrayList<>(group);
-                result.groups.add(list);
-            }
+        if(initialized()) {
+            result.indexes = Arrays.copyOf(indexes, indexes.length);
+            result.begins = new ArrayList<>(begins);
         }
         return result;
     }

@@ -124,7 +124,9 @@ public class ODTree {
             node.minimal=false;
         }
     }
-
+    public int getODCount(){
+        return getAllOdsOrderByDFS().size();
+    }
     private static final int FRAME_WIDTH=1200;
     private static final int FRAME_HEIGHT=800;
     private static final int ROOT_Y=20;

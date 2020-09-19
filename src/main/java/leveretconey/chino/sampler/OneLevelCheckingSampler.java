@@ -7,10 +7,12 @@ import leveretconey.chino.dataStructures.AttributeAndDirection;
 import leveretconey.chino.dataStructures.DataFrame;
 import leveretconey.chino.dataStructures.EquivalenceClass;
 import leveretconey.chino.dataStructures.ODTreeNodeEquivalenceClasses;
+import leveretconey.chino.dataStructures.PartialDataFrame;
 
 public class OneLevelCheckingSampler extends Sampler{
     private static final int LOW_BOUND=10;
     private static final int UPPER_BOUND=100;
+    long seed=-1;
 
     @Override
     protected Set<Integer> chooseLines(DataFrame data, int adviceSampleSize) {
@@ -25,7 +27,13 @@ public class OneLevelCheckingSampler extends Sampler{
         }
 
         int candidateSize=Math.min(rowCount,UPPER_BOUND);
-        DataFrame candidateData=new RandomSampler().sample(data,new SampleConfig(candidateSize));
+        PartialDataFrame candidateData;
+        RandomSampler sampler=new RandomSampler();
+        if(seed!=-1){
+            sampler.setRandomSeed(seed);
+        }
+        candidateData=sampler.sample(data,new SampleConfig(candidateSize));
+
 
         EquivalenceClass[][] equivalenceClasses=new EquivalenceClass[columnCount][2];
         for (int column = 0; column < columnCount; column++) {
@@ -47,7 +55,15 @@ public class OneLevelCheckingSampler extends Sampler{
                         .validate(candidateData).violationRows);
             }
         }
+        Set<Integer> realResult=new HashSet<>();
+        for (Integer i : result) {
+            realResult.add(candidateData.getRealIndex(i));
+        }
+        return realResult;
+    }
 
-        return result;
+    @Override
+    public void setRandomSeed(long randomSeed) {
+        seed=randomSeed;
     }
 }

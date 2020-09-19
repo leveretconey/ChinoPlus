@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" name="Chino:jar">
+  <artifact type="jar" build-on-make="true" name="Chino:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Chino_jar</output-path>
     <root id="archive" name="Chino.jar">
       <element id="directory" name="META-INF">

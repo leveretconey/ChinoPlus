@@ -12,59 +12,12 @@ import leveretconey.chino.dataStructures.VisitCountConsideredMap;
 import leveretconey.chino.util.Timer;
 import leveretconey.chino.util.Util;
 
-public class ODPrefixBasedIncrementalValidator extends ODValidator{
+public class ODPrefixBasedIncrementalValidatorNoPath extends ODPrefixBasedIncrementalValidator{
+
+
 
     @Override
-    public Set<Integer> validate(ODTree tree, DataFrame data) {
-        VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache
-                =new VisitCountConsideredMap<>();
-        Set<Integer> violationRows=new HashSet<>();
-        List<ODCandidate> ods=tree.getAllOdsOrderByDFS();
-        List<ODCandidate> notConfirmedODs= chooseODs(ods);
-
-        if(notConfirmedODs.size()==0){
-            return violationRows;
-        }
-        HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache=
-                predictCacheVisitCount(cache,notConfirmedODs);
-        cache.put(tree.getRoot(),new ODTreeNodeEquivalenceClasses());
-
-        for(ODCandidate od:notConfirmedODs){
-            ODValidationResult result= validateOneOdCandidate
-                    (data,od.odByODTreeNode,cache,nodeForNodeToGetCache);
-            violationRows.addAll(result.violationRows);
-        }
-        return violationRows;
-    }
-
-    protected List<ODCandidate> chooseODs(List<ODCandidate> ods){
-        List<ODCandidate> result=new ArrayList<>();
-        for (ODCandidate od:ods){
-            if(!od.odByODTreeNode.confirm){
-                result.add(od);
-            }
-        }
-        return result;
-    }
-
-    private HashMap<ODTreeNode,ODTreeNode> predictCacheVisitCount(VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses>
-                                             cache, List<ODCandidate> ods){
-        HashSet<ODTreeNode> possibleCacheNodes=new HashSet<>();
-        HashMap<ODTreeNode,ODTreeNode> result=new HashMap<>();
-        possibleCacheNodes.add(ods.get(0).odByODTreeNode.getRoot());
-        for(ODCandidate od:ods){
-            ODTreeNode odNode=od.odByODTreeNode,node=odNode;
-            while (!possibleCacheNodes.contains(node)){
-                possibleCacheNodes.add(node);
-                node=node.parent;
-            }
-            cache.addVisitCount(node);
-            result.put(odNode,node);
-        }
-        return result;
-    }
-
-    private ODValidationResult validateOneOdCandidate(DataFrame data, ODTree.ODTreeNode node,
+    protected ODValidationResult validateOneOdCandidate(DataFrame data, ODTree.ODTreeNode node,
                                                       VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache,
                                                       HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache
     ){
@@ -87,32 +40,31 @@ public class ODPrefixBasedIncrementalValidator extends ODValidator{
            odTreeNodeEquivalenceClasses.mergeNode(node,data);
            if(cache.mayPut(node))
                cache.put(node,odTreeNodeEquivalenceClasses.deepClone());
-           if(!node.confirm){
-               node.confirm();
+           if(path.isEmpty()){
                ODValidationResult result=odTreeNodeEquivalenceClasses.validate(data);
                if(result.status!=node.status){
                    cache.addVisitCount(cacheNode);
                    updateCacheVisitCountBeforeNodeChildrenCut
                            (node,cache,nodeForNodeToGetCache);
-                   node.setStatus(result.status);
-                   result.status= ODTree.ODTreeNodeStatus.UNKNOWN;
-                   return result;
+               }else {
+                    setPathConfirm(node);
                }
+               node.setStatus(result.status);
+               return result;
            }
        }
+       //not reachable
        ODValidationResult result=new ODValidationResult();
        result.status=node.status;
        return result;
     }
 
-    private void updateCacheVisitCountBeforeNodeChildrenCut(ODTreeNode nodeToCutChildren,
-                                                    VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache,
-                                                    HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache
-    ){
-        List<ODCandidate> ods=new ArrayList<>();
-        nodeToCutChildren.getAllNodesOrderByDFSRecursion(ods, node -> node.minimal && node.status== ODTree.ODTreeNodeStatus.VALID);
-        for (ODCandidate od : ods) {
-            cache.addVisitCount(nodeForNodeToGetCache.get(od.odByODTreeNode),-1);
+    protected void setPathConfirm(ODTreeNode node){
+        while (!node.confirm){
+            node.confirm();
+            node=node.parent;
         }
     }
+
+
 }
