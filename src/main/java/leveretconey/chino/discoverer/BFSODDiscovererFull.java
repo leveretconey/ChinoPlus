@@ -10,10 +10,12 @@ import leveretconey.chino.dataStructures.ODTree;
 import leveretconey.chino.dataStructures.ODTree.ODTreeNode;
 import leveretconey.chino.dataStructures.ODTreeNodeEquivalenceClasses;
 import leveretconey.chino.minimal.ODMinimalChecker;
+import leveretconey.chino.util.Util;
 
 public class BFSODDiscovererFull extends ODDiscoverer{
     @Override
     public ODTree discover(DataFrame data, ODTree reference) {
+        int visitNodeCount=0;
         Queue<ODDiscovererNodeSavingInfo> queue=new LinkedList<>();
         ODTree result=new ODTree(data.getColumnCount());
         int attributeCount=data.getColumnCount();
@@ -33,6 +35,8 @@ public class BFSODDiscovererFull extends ODDiscoverer{
         while (!queue.isEmpty()) {
             ODDiscovererNodeSavingInfo info=queue.poll();
             ODTreeNode parent=info.nodeInResultTree;
+            visitNodeCount++;
+            Util.out(String.format("当前访问到第%d个结点%s",visitNodeCount,parent));
 
             for (int attribute = 0; attribute < attributeCount*2; attribute++) {
                 ODTreeNode child;

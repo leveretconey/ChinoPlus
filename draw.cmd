@@ -1,1 +1,0 @@
-dot -Tpng odtree.dot -o odtree.png

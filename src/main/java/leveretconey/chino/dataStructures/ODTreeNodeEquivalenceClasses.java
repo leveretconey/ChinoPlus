@@ -2,6 +2,7 @@ package leveretconey.chino.dataStructures;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -186,6 +187,14 @@ public class ODTreeNodeEquivalenceClasses {
             right.merge(data,attribute);
         mergeTime+=mergeTimer.getTimeUsed();
         return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ODTreeNodeEquivalenceClasses)) return false;
+        ODTreeNodeEquivalenceClasses that = (ODTreeNodeEquivalenceClasses) o;
+        return this.left.equals(that.left) && this.right.equals(that.right);
     }
 
 }

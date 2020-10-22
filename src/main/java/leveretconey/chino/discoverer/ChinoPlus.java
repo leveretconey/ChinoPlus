@@ -13,8 +13,8 @@ import leveretconey.chino.sampler.OneLevelCheckingSampler;
 import leveretconey.chino.sampler.Sampler;
 import leveretconey.chino.util.Timer;
 import leveretconey.chino.util.Util;
+import leveretconey.chino.validator.ODPrefixBasedIncrementalValidatorFDMinimal;
 import leveretconey.chino.validator.ODValidator;
-import leveretconey.chino.validator.ODPrefixBasedIncrementalValidator;
 
 public class ChinoPlus extends ODDiscoverer{
 
@@ -34,7 +34,10 @@ public class ChinoPlus extends ODDiscoverer{
         this(false);
     }
     public ChinoPlus(boolean printDebugInfo) {
-        this(new OneLevelCheckingSampler(),new ODPrefixBasedIncrementalValidator(),printDebugInfo);
+        this(
+                new OneLevelCheckingSampler(),
+                new ODPrefixBasedIncrementalValidatorFDMinimal(),
+                printDebugInfo);
     }
 
     public ChinoPlus(Sampler sampler, ODValidator validator) {
@@ -112,7 +115,6 @@ public class ChinoPlus extends ODDiscoverer{
                             out("-----------------------------------------------------");
                         return odTree;
                     }else {
-                        //todo debug
                         if (odTree.getAllOdsOrderByDFS().size()>100000){
                             for (ODCandidate od : odTree.getAllOdsOrderByBFS()) {
                                 Util.out(od);

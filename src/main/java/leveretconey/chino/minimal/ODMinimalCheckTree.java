@@ -7,6 +7,7 @@ import java.util.List;
 import leveretconey.chino.dataStructures.AttributeAndDirection;
 import leveretconey.chino.dataStructures.ODCandidate;
 
+
 public class ODMinimalCheckTree extends ODMinimalChecker {
 
 

@@ -1,0 +1,123 @@
+package leveretconey.chino.validator;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.Stack;
+
+import leveretconey.chino.dataStructures.DataFrame;
+import leveretconey.chino.dataStructures.ODCandidate;
+import leveretconey.chino.dataStructures.ODTree;
+import leveretconey.chino.dataStructures.ODTree.ODTreeNode;
+import leveretconey.chino.dataStructures.ODTreeNodeEquivalenceClasses;
+import leveretconey.chino.dataStructures.ODValidationResult;
+import leveretconey.chino.dataStructures.VisitCountConsideredMap;
+
+public class ODPrefixBasedIncrementalValidatorFDMinimal extends ODValidator{
+
+    @Override
+    public Set<Integer> validate(ODTree tree, DataFrame data) {
+        VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache
+                =new VisitCountConsideredMap<>();
+        Set<Integer> violationRows=new HashSet<>();
+        List<ODCandidate> ods=tree.getAllOdsOrderByDFS();
+        List<ODCandidate> notConfirmedODs= chooseODs(ods);
+
+        if(notConfirmedODs.size()==0){
+            return violationRows;
+        }
+        HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache=
+                predictCacheVisitCount(cache,notConfirmedODs);
+        cache.put(tree.getRoot(),new ODTreeNodeEquivalenceClasses());
+
+        for(ODCandidate od:notConfirmedODs){
+            ODValidationResult result= validateOneOdCandidate
+                    (data,od.odByODTreeNode,cache,nodeForNodeToGetCache);
+            violationRows.addAll(result.violationRows);
+        }
+        return violationRows;
+    }
+
+    protected List<ODCandidate> chooseODs(List<ODCandidate> ods){
+        List<ODCandidate> result=new ArrayList<>();
+        for (ODCandidate od:ods){
+            if(!od.odByODTreeNode.confirm){
+                result.add(od);
+            }
+        }
+        return result;
+    }
+
+    private HashMap<ODTreeNode,ODTreeNode> predictCacheVisitCount(VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses>
+                                             cache, List<ODCandidate> ods){
+        HashSet<ODTreeNode> possibleCacheNodes=new HashSet<>();
+        HashMap<ODTreeNode,ODTreeNode> result=new HashMap<>();
+        possibleCacheNodes.add(ods.get(0).odByODTreeNode.getRoot());
+        for(ODCandidate od:ods){
+            ODTreeNode odNode=od.odByODTreeNode,node=odNode;
+            while (!possibleCacheNodes.contains(node)){
+                possibleCacheNodes.add(node);
+                node=node.parent;
+            }
+            cache.addVisitCount(node);
+            result.put(odNode,node);
+        }
+        return result;
+    }
+
+    protected ODValidationResult validateOneOdCandidate(DataFrame data, ODTreeNode node,
+                                                      VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache,
+                                                      HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache
+    ){
+       if(!node.accessible()){
+            return new ODValidationResult();
+       }
+       Stack<ODTreeNode> path=new Stack<>();
+       ODTreeNode cacheNode=nodeForNodeToGetCache.get(node);
+       do {
+           path.push(node);
+           node=node.parent;
+       }while (node!=cacheNode);
+       ODTreeNodeEquivalenceClasses workingEC= cache.get(node);
+       if(cache.containKey(node)){
+           workingEC=workingEC.deepClone();
+       }
+       while(!path.isEmpty()){
+           node=path.pop();
+           ODTreeNodeEquivalenceClasses parentEC = workingEC.deepClone();
+           workingEC.mergeNode(node,data);
+           ODTreeNodeEquivalenceClasses childEC = workingEC;
+           if(cache.mayPut(node))
+               cache.put(node,workingEC.deepClone());
+           if(!node.confirm){
+               node.confirm();
+               ODValidationResult result=workingEC.validate(data);
+               node.minimal = !parentEC.equals(childEC);
+               if(!node.minimal || result.status!=node.status){
+                   cache.addVisitCount(cacheNode);
+                   updateCacheVisitCountBeforeNodeChildrenCut
+                           (node,cache,nodeForNodeToGetCache);
+                   node.setStatus(result.status);
+                   result.status= ODTree.ODTreeNodeStatus.UNKNOWN;
+                   return result;
+               }
+           }
+       }
+       ODValidationResult result=new ODValidationResult();
+       result.status=node.status;
+       return result;
+    }
+
+    protected void updateCacheVisitCountBeforeNodeChildrenCut(ODTreeNode nodeToCutChildren,
+                                                    VisitCountConsideredMap<ODTreeNode,ODTreeNodeEquivalenceClasses> cache,
+                                                    HashMap<ODTreeNode,ODTreeNode> nodeForNodeToGetCache
+    ){
+        List<ODCandidate> ods=new ArrayList<>();
+        nodeToCutChildren.getAllNodesOrderByDFSRecursion(ods, node -> node.minimal && node.status== ODTree.ODTreeNodeStatus.VALID);
+        for (ODCandidate od : ods) {
+            cache.addVisitCount(nodeForNodeToGetCache.get(od.odByODTreeNode),-1);
+        }
+    }
+}

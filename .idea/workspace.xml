@@ -2,40 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="60e810f4-3942-442d-b313-92c5c9bc1a30" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlusTwoIteration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorAllViolation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Chino_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Chino_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorFDMinimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/flights_5w_14.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/draw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/artifacts/Chino_jar/Chino.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/Chino_jar/Chino.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/EquivalenceClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/EquivalenceClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTreeNodeEquivalenceClasses.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTreeNodeEquivalenceClasses.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODValidationResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODValidationResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/PartialDataFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/PartialDataFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererForIteration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererForIteration.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererFull.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererFull.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/OneLevelCheckingSampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/OneLevelCheckingSampler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/Sampler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/Sampler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorNoPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorNoPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/leveretconey/chino/test/TestDiscoverer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/leveretconey/chino/test/TestDiscoverer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/Main.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/EquivalenceClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/EquivalenceClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$ODTreeNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$ODTreeNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$ODTreeNodeStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree$ODTreeNodeStatus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTree.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTreeNodeEquivalenceClasses.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODTreeNodeEquivalenceClasses.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODValidationResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/ODValidationResult.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/PartialDataFrame.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/dataStructures/PartialDataFrame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/discoverer/BFSODDiscovererForIteration.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/discoverer/BFSODDiscovererForIteration.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/discoverer/BFSODDiscovererFull.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/discoverer/BFSODDiscovererFull.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/discoverer/ChinoPlus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/discoverer/ChinoPlus.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/sampler/OneLevelCheckingSampler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/sampler/OneLevelCheckingSampler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/sampler/Sampler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/sampler/Sampler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/validator/ODBruteForceFullValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/validator/ODBruteForceFullValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/validator/ODPrefixBasedIncrementalValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/validator/ODPrefixBasedIncrementalValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/leveretconey/chino/test/TestDiscoverer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/leveretconey/chino/test/TestDiscoverer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/minimal/ODMinimalCheckTree$ODMinimalCheckTreeNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/minimal/ODMinimalCheckTree$ODMinimalCheckTreeNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/leveretconey/chino/minimal/ODMinimalCheckTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/leveretconey/chino/minimal/ODMinimalCheckTree.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -67,11 +52,11 @@
     <session id="898162616">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="56" />
+          <entry key="project.closed" value="57" />
           <entry key="project.open.time.0" value="19" />
           <entry key="project.open.time.1" value="12" />
           <entry key="project.open.time.10" value="5" />
-          <entry key="project.open.time.11" value="1" />
+          <entry key="project.open.time.11" value="2" />
           <entry key="project.open.time.12" value="4" />
           <entry key="project.open.time.13" value="1" />
           <entry key="project.open.time.14" value="2" />
@@ -81,14 +66,16 @@
           <entry key="project.open.time.7" value="3" />
           <entry key="project.open.time.8" value="4" />
           <entry key="project.open.time.9" value="6" />
-          <entry key="project.opened" value="60" />
+          <entry key="project.opened" value="61" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="MF" value="1" />
+          <entry key="cmd" value="1" />
           <entry key="csv" value="46" />
-          <entry key="gitignore" value="1" />
-          <entry key="java" value="361" />
+          <entry key="gitignore" value="3" />
+          <entry key="java" value="381" />
           <entry key="jpg" value="1" />
           <entry key="txt" value="1" />
           <entry key="vmoptions" value="2" />
@@ -97,10 +84,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+          <entry key="Batch" value="1" />
           <entry key="CSV" value="46" />
           <entry key="Image" value="1" />
-          <entry key="JAVA" value="361" />
-          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="JAVA" value="381" />
+          <entry key="Manifest" value="1" />
+          <entry key="PLAIN_TEXT" value="6" />
           <entry key="XML" value="1" />
         </counts>
       </usages-collector>
@@ -108,7 +97,8 @@
         <counts>
           <entry key="csv" value="106" />
           <entry key="dummy" value="14" />
-          <entry key="java" value="15170" />
+          <entry key="gitignore" value="59" />
+          <entry key="java" value="15598" />
           <entry key="vmoptions" value="9" />
           <entry key="xml" value="4" />
         </counts>
@@ -116,8 +106,8 @@
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CSV" value="106" />
-          <entry key="JAVA" value="15170" />
-          <entry key="PLAIN_TEXT" value="23" />
+          <entry key="JAVA" value="15598" />
+          <entry key="PLAIN_TEXT" value="82" />
           <entry key="XML" value="4" />
         </counts>
       </usages-collector>
@@ -129,10 +119,28 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckTree.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="22" column="65" lean-forward="true" selection-start-line="22" selection-start-column="65" selection-end-line="22" selection-end-column="65" />
+            <state relative-caret-position="-180">
+              <caret line="2" column="27" lean-forward="true" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorFDMinimal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-36">
+              <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="216">
+              <caret line="38" column="62" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -152,6 +160,7 @@
       <find />
       <find>random</find>
       <find>switch</find>
+      <find>minima</find>
     </findStrings>
     <replaceStrings>
       <replace>,</replace>
@@ -163,9 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/MinimalCheckTree.java" />
-        <option value="$PROJECT_DIR$/src/main/java/minimal/ODMinimalChecker.java" />
-        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODMinimalCheckTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/minimal/ODMinimalCheckTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckerBruteForce.java" />
         <option value="$PROJECT_DIR$/src/test/java/leveretconey/chino/test/CompareFile.java" />
@@ -173,7 +179,6 @@
         <option value="$PROJECT_DIR$/src/test/java/leveretconey/chino/test/DebugTemp.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/AttributeAndDirection.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlusForDebug.java" />
-        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalChecker.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/datasets/testdata.csv" />
@@ -191,7 +196,6 @@
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/OneLevelSwapCheckSampler.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/OneLevelSwapCheckingSampler.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/DataFrame.java" />
-        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererFull.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ODDiscoverer.java" />
         <option value="$PROJECT_DIR$/datasets/example.csv" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODCandidate.java" />
@@ -209,11 +213,16 @@
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlusTwoIteration.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererForIteration.java" />
         <option value="$PROJECT_DIR$/src/test/java/leveretconey/chino/test/TestDiscoverer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTreeNodeEquivalenceClasses.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidator.java" />
-        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlus.java" />
-        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/Main.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckTree.java" />
+        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererFull.java" />
+        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTreeNodeEquivalenceClasses.java" />
         <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/EquivalenceClass.java" />
+        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorMinimal.java" />
+        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlus.java" />
+        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorFDMinimal.java" />
+        <option value="$PROJECT_DIR$/src/main/java/leveretconey/chino/Main.java" />
       </list>
     </option>
   </component>
@@ -280,11 +289,6 @@
             <path>
               <item name="ChinoPlus" type="b2602c69:ProjectViewProjectNode" />
               <item name="ChinoPlus" type="462c0819:PsiDirectoryNode" />
-              <item name="datasets" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="ChinoPlus" type="b2602c69:ProjectViewProjectNode" />
-              <item name="ChinoPlus" type="462c0819:PsiDirectoryNode" />
               <item name="integer datasets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -320,7 +324,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="chino" type="462c0819:PsiDirectoryNode" />
-              <item name="dataStructures" type="462c0819:PsiDirectoryNode" />
+              <item name="discoverer" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="ChinoPlus" type="b2602c69:ProjectViewProjectNode" />
@@ -329,7 +333,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="chino" type="462c0819:PsiDirectoryNode" />
-              <item name="minimal" type="462c0819:PsiDirectoryNode" />
+              <item name="validator" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -352,20 +356,20 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.CommitDialog" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="leveretconey.chino.validator" />
-    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="leveretconey.chino" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="leveretconey.chino.validator" />
-      <recent name="leveretconey.chino.discoverer" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\MyProjects\java\ChinoPlus\integer datasets" />
       <recent name="D:\MyProjects\java\ChinoPlus" />
       <recent name="D:\MyProjects\java\ChinoPlus\datasets" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="leveretconey.chino.validator" />
+      <recent name="leveretconey.chino.discoverer" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="leveretconey.chino.validator" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -397,8 +401,7 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="leveretconey.chino.Main" />
       <module name="Chino" />
-      <option name="PROGRAM_PARAMETERS" value="10" />
-      <option name="VM_PARAMETERS" value="-Xms4g -Xmx4g -Xmn1g " />
+      <option name="VM_PARAMETERS" value="-Xms4g -Xmx4g -Xmn3g -XX:AutoBoxCacheMax=3000000" />
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="leveretconey.chino.*" />
@@ -539,7 +542,8 @@
       <workItem from="1598796097721" duration="598000" />
       <workItem from="1600422629103" duration="199000" />
       <workItem from="1600422832279" duration="803000" />
-      <workItem from="1600478886285" duration="636000" />
+      <workItem from="1600478886285" duration="8068000" />
+      <workItem from="1603290585482" duration="3426000" />
     </task>
     <servers />
   </component>
@@ -576,7 +580,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="174047000" />
+    <option name="totallyTimeSpent" value="184905000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -588,26 +592,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1313" height="784" extended-state="7" />
+    <frame x="-8" y="-8" width="1313" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49768874" visible="true" weight="0.30167598" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49768874" visible="true" weight="0.34557062" />
       <window_info id="Structure" order="1" sideWeight="0.5023112" side_tool="true" weight="0.27857143" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" sideWeight="0.5007704" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32973805" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.5624037" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35747305" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49920633" weight="0.51155627" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32882413" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32819724" />
       <window_info anchor="bottom" id="Run with VisualVM" order="7" />
       <window_info anchor="bottom" id="Debug with VisualVM" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32819724" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50079364" side_tool="true" weight="0.3990755" />
-      <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="12" weight="0.5947612" />
       <window_info anchor="bottom" id="Messages" order="13" weight="0.32973805" />
       <window_info anchor="bottom" id="Statistic" order="14" weight="0.32973805" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -648,52 +652,46 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/DataAndIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="25" selection-start-line="2" selection-start-column="25" selection-end-line="2" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedFullValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODBruteForceFullValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="30" column="11" selection-start-line="30" selection-start-column="11" selection-end-line="30" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/preparation/ConvertStringtoInt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/preparation/SignDisposal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/BidirectionReverseNumberSampler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/SampleConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -705,13 +703,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
           <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/DataFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="74" column="13" selection-start-line="74" selection-start-column="13" selection-end-line="74" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -770,20 +761,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
           <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererFull.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-630">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorNoPath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
-          <caret line="30" column="28" lean-forward="true" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -860,20 +837,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="381" column="14" lean-forward="true" selection-start-line="381" selection-start-column="14" selection-end-line="381" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererForIteration.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-279">
-          <caret line="64" column="17" selection-start-line="64" selection-start-column="17" selection-end-line="64" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/util/Vector.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="587">
@@ -894,22 +857,86 @@
       </provider>
       <provider selected="true" editor-type-id="csv-text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidator.java">
+    <entry file="file://$PROJECT_DIR$/integer datasets/temp.csv" />
+    <entry file="file://$PROJECT_DIR$/integer datasets/qinshen.csv" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/Sampler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="100" column="49" selection-start-line="100" selection-start-column="49" selection-end-line="100" selection-end-column="49" />
+        <state relative-caret-position="-31">
+          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/OneLevelCheckingSampler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datasets/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/META-INF/MANIFEST.MF">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/draw.cmd" />
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="10" selection-start-line="5" selection-start-column="10" selection-end-line="5" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererFull.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="14" column="32" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1017">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/BFSODDiscovererForIteration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-247">
+          <caret line="77" column="25" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/src.zip!/java/lang/Object.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="147" column="19" selection-start-line="147" selection-start-column="19" selection-end-line="147" selection-end-column="19" />
+          <folding>
+            <element signature="e#5748#5749#0" expanded="true" />
+            <element signature="e#5784#5785#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/EquivalenceClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="21" column="4" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding>
+            <element signature="e#829#830#0" expanded="true" />
+            <element signature="e#865#866#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTreeNodeEquivalenceClasses.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-69">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
+        <state relative-caret-position="347">
+          <caret line="192" selection-start-line="192" selection-end-line="195" selection-end-column="77" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/integer datasets/temp.csv" />
-    <entry file="file://$PROJECT_DIR$/integer datasets/qinshen.csv" />
     <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ODDiscoverer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -921,45 +948,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/Sampler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorNoPath.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-31">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
+        <state relative-caret-position="360">
+          <caret line="30" column="28" lean-forward="true" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/discoverer/ChinoPlus.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="39" column="25" selection-start-line="39" selection-start-column="25" selection-end-line="39" selection-end-column="25" />
+        <state relative-caret-position="216">
+          <caret line="38" column="62" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="62" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/sampler/OneLevelCheckingSampler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/DataFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        <state relative-caret-position="414">
+          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
+          <folding>
+            <element signature="e#1462#1463#0" expanded="true" />
+            <element signature="e#1515#1516#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/EquivalenceClass.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153">
-          <caret line="75" column="25" selection-start-line="75" selection-start-column="25" selection-end-line="75" selection-end-column="25" />
+        <state relative-caret-position="-979">
+          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/dataStructures/ODTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-6111">
+          <caret line="93" column="29" selection-start-line="93" selection-start-column="29" selection-end-line="93" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/validator/ODPrefixBasedIncrementalValidatorFDMinimal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-36">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/leveretconey/chino/minimal/ODMinimalCheckTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="22" column="65" lean-forward="true" selection-start-line="22" selection-start-column="65" selection-end-line="22" selection-end-column="65" />
+        <state relative-caret-position="-180">
+          <caret line="2" column="27" lean-forward="true" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
         </state>
       </provider>
     </entry>
