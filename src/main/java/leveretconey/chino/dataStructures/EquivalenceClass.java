@@ -15,9 +15,12 @@ public class EquivalenceClass{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ODTreeNodeEquivalenceClasses)) return false;
+        if(o == null) return false;
+        if (!(o instanceof EquivalenceClass)) return false;
         EquivalenceClass that = (EquivalenceClass) o;
-        return this.begins == that.begins || this.begins.size() == that.begins.size();
+        if( this.begins == that.begins) return true;
+        if(this.begins == null || that.begins == null) return false;
+        return this.begins.size() == that.begins.size();
     }
 
     private final static Comparator<DataAndIndex> reverseComparator=(i1, i2)->i2.data-i1.data;
